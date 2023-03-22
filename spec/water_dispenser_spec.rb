@@ -1,11 +1,15 @@
 require_relative '../lib/water_dispenser'
 
-describe 'A water dispenser' do
-    # it 'drains water from the reservoir into a vessel' do
-    #     reservoir = WaterReservoir.new(10)
-    #     dispenser = WaterDispenser.new(reservoir)
-    #     vessel = Vessel.new('Nalgene', volume: 2)
-    #     dispenser.dispense(vessel)
-    #     expect(reservoir.current_volume).to eq(8)
-    # end
+  describe 'A water dispenser' do
+    let(:reservoir) { double("WaterReservoir") }
+    let(:dispenser) { WaterDispenser.new(reservoir) }
+
+  describe "#dispense" do
+    it "drains the correct amount from the reservoir" do
+      volume = 2
+      vessel = double("Nalgene", volume: volume)
+      expect(reservoir).to receive(:drain).with(volume)
+      dispenser.dispense(vessel)
+    end
+  end
 end
